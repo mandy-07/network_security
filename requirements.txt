@@ -7,4 +7,11 @@ pymongo[srv]
 scikit-learn
 dill
 pyaml
+xgboost
+mlflow
+dagshub
+fastapi
+uvicorn
+python-multipart
+jinja2
 ## -e .
