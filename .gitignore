@@ -1,2 +1,5 @@
 venv 
 .env
+logs
+Network_Security_Project.egg-info
+Artifacts

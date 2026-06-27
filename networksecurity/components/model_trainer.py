@@ -9,6 +9,11 @@ from networksecurity.entity.artifact_entity import (
     ModelTrainerArtifact
 )
 
+import mlflow
+import mlflow.sklearn
+from urllib.parse import urlparse
+import dagshub
+
 from networksecurity.entity.config_entity import ModelTrainerConfig
 
 from networksecurity.utils.ml_utils.model.estimator import NetworkModel
@@ -39,9 +44,6 @@ from xgboost import XGBClassifier
 import mlflow
 import mlflow.sklearn
 from urllib.parse import urlparse
-
-import dagshub
-dagshub.init(repo_owner='mandy_07', repo_name='network_security', mlflow=True)
 
 
 
@@ -106,6 +108,16 @@ class ModelTrainer:
         X_test,
         y_test
     ):
+        
+        try:
+            dagshub.init(
+                repo_owner="mandy_07",
+                repo_name="network_security",
+                mlflow=True
+            )
+            logging.info("DagsHub initialized successfully.")
+        except Exception as e:
+            logging.warning(f"DagsHub initialization skipped: {e}")
 
         models = {
             "Random Forest": RandomForestClassifier(
