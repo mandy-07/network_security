@@ -21,6 +21,8 @@ class TrainingPipelineConfig:
             timestamp
         )
 
+        self.model_dir = "final_model"
+
         self.timestamp: str = timestamp
 
 
