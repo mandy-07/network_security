@@ -50,8 +50,13 @@ logging.info("MongoDB connection established successfully.")
 # ----------------------------------------------------
 # FastAPI App
 # ----------------------------------------------------
-app = FastAPI()
+from fastapi import FastAPI
 
+app = FastAPI(
+    title="Network Intrusion Detection System API",
+    description="REST API for detecting malicious network traffic using Machine Learning",
+    version="1.0.0"
+)
 origins = ["*"]
 
 app.add_middleware(
