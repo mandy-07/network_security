@@ -9,6 +9,7 @@ import sys
 import numpy as np
 import pandas as pd
 import pymongo
+import certifi
 
 from sklearn.model_selection import train_test_split
 
@@ -17,6 +18,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MONGO_DB_URL = os.getenv("MONGO_DB_URL")
+ca = certifi.where()
 
 
 class DataIngestion:
@@ -42,7 +44,7 @@ class DataIngestion:
             database_name = self.data_ingestion_config.database_name
             collection_name = self.data_ingestion_config.collection_name
 
-            mongo_client = pymongo.MongoClient(MONGO_DB_URL)
+            mongo_client = pymongo.MongoClient(MONGO_DB_URL, tlsCAFile=ca)
 
             try:
                 collection = mongo_client[database_name][collection_name]

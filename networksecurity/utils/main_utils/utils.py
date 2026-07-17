@@ -157,11 +157,15 @@ def evaluate_models(
 
             para = param[model_name]
 
+            # Detect Render free tier to prevent Out Of Memory crashes by using 1 worker
+            default_n_jobs = 1 if "RENDER" in os.environ else -1
+            n_jobs = int(os.getenv("GRIDSEARCH_N_JOBS", default_n_jobs))
+
             gs = GridSearchCV(
                 estimator=model,
                 param_grid=para,
                 cv=3,
-                n_jobs=-1
+                n_jobs=n_jobs
             )
 
             gs.fit(X_train, y_train)

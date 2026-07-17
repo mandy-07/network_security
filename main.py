@@ -15,6 +15,12 @@ from networksecurity.entity.config_entity import (
 )
 
 import sys
+import io
+
+# Fix Windows console encoding issues for emojis (e.g. from MLflow)
+if sys.platform.startswith("win"):
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
 
 
 if __name__ == "__main__":

@@ -10,10 +10,16 @@ class NetworkSecurityException(Exception):
 
         _, _, exc_tb = error_details.exc_info()
 
-        self.file_name = exc_tb.tb_frame.f_code.co_filename
-        self.line_number = exc_tb.tb_lineno
+        if exc_tb is not None:
+            self.file_name = exc_tb.tb_frame.f_code.co_filename
+            self.line_number = exc_tb.tb_lineno
+            self.function_name = exc_tb.tb_frame.f_code.co_name
+        else:
+            self.file_name = "Unknown"
+            self.line_number = 0
+            self.function_name = "Unknown"
+
         self.error_message = str(error_message)
-        self.function_name = exc_tb.tb_frame.f_code.co_name
 
     def __str__(self):
 
