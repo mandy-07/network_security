@@ -1,25 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Data Table</title>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SentinelFlow Prediction</title>
+
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
         }
 
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
+        body{
+
+            background:#f5f7fb;
+
+            padding:40px;
+
         }
+
+        .container{
+
+            max-width:1300px;
+
+            margin:auto;
+
+            background:white;
+
+            padding:30px;
+
+            border-radius:12px;
+
+            box-shadow:0 10px 25px rgba(0,0,0,.1);
+
+        }
+
+        h1{
+
+            text-align:center;
+
+            color:#1f2937;
+
+        }
+
+        h3{
+
+            text-align:center;
+
+            color:#6b7280;
+
+            margin-top:8px;
+
+            margin-bottom:35px;
+
+        }
+
+        .success{
+
+            background:#d1fae5;
+
+            color:#065f46;
+
+            padding:15px;
+
+            border-radius:8px;
+
+            margin-bottom:30px;
+
+            text-align:center;
+
+            font-weight:bold;
+
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            margin-top:20px;
+
+            overflow:hidden;
+
+        }
+
+        th{
+
+            background:#2563eb;
+
+            color:white;
+
+            padding:12px;
+
+        }
+
+        td{
+
+            padding:10px;
+
+            border-bottom:1px solid #ddd;
+
+            text-align:center;
+
+        }
+
+        tr:nth-child(even){
+
+            background:#f9fafb;
+
+        }
+
+        tr:hover{
+
+            background:#eef4ff;
+
+        }
+
+        footer{
+
+            text-align:center;
+
+            margin-top:35px;
+
+            color:gray;
+
+        }
+
     </style>
+
 </head>
 
 <body>
-    <h2>Predicted Data</h2>
+
+<div class="container">
+
+    <h1>🛡️ SentinelFlow</h1>
+
+    <h3>AI Powered Network Intrusion Detection System</h3>
+
+    <div class="success">
+
+        Prediction Completed Successfully ✅
+
+    </div>
 
     {{ table | safe }}
 
+    <footer>
+
+        Developed using FastAPI • Scikit-Learn • Machine Learning
+
+    </footer>
+
+</div>
+
 </body>
+
 </html>
