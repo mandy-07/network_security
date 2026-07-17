@@ -72,6 +72,11 @@ class ModelTrainer:
             classificationmetric
         ):
 
+        # Skip MLflow logging on Render to stay within the 512MB RAM limit
+        if "RENDER" in os.environ:
+            logging.info("Skipping MLflow logging on Render to conserve memory.")
+            return
+
         with mlflow.start_run():
 
             f1_score = classificationmetric.f1_score

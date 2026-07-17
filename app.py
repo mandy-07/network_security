@@ -13,7 +13,7 @@ import pymongo
 
 from dotenv import load_dotenv
 
-from fastapi import FastAPI, File, UploadFile, Request
+from fastapi import FastAPI, File, UploadFile, Request, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from fastapi.templating import Jinja2Templates
@@ -114,14 +114,30 @@ async def index():
 # Train Route
 # ====================================================
 
-@app.get("/train")
-async def train_route():
+def run_training_in_background():
     try:
-
+        logging.info("Background training started.")
         train_pipeline = TrainingPipeline()
         train_pipeline.run_pipeline()
+        logging.info("Background training completed successfully. Hot-swapping model in memory...")
+        
+        global network_model
+        new_preprocessor = load_object("final_model/preprocessor.pkl")
+        new_model = load_object("final_model/model.pkl")
+        network_model = NetworkModel(
+            preprocessor=new_preprocessor,
+            model=new_model
+        )
+        logging.info("In-memory model updated and hot-swapped successfully.")
+    except Exception as e:
+        logging.error(f"Background training failed: {e}")
 
-        return Response("Training completed successfully.")
+
+@app.get("/train")
+async def train_route(background_tasks: BackgroundTasks):
+    try:
+        background_tasks.add_task(run_training_in_background)
+        return Response("Training initiated in the background. Please check the logs for progress.")
 
     except Exception as e:
         raise NetworkSecurityException(e, sys)

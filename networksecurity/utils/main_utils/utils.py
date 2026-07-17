@@ -209,6 +209,10 @@ def evaluate_models(
 
             report[model_name] = test_model_score
 
+            # Free up memory immediately after each model search to prevent OOM
+            import gc
+            gc.collect()
+
         return report
 
     except Exception as e:
